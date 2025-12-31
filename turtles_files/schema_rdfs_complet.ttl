@@ -1,0 +1,67 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix nba: <https://example.org/nba/> .
+
+### Classes
+nba:Person a rdfs:Class .
+nba:Organization a rdfs:Class .
+nba:Event a rdfs:Class .
+
+nba:Player rdfs:subClassOf nba:Person .
+nba:Team rdfs:subClassOf nba:Organization .
+nba:Game rdfs:subClassOf nba:Event .
+
+### Properties (hiérarchies et super-properties)
+nba:involvesTeam a rdf:Property .
+nba:homeTeam rdfs:subPropertyOf nba:involvesTeam .
+nba:visitorTeam rdfs:subPropertyOf nba:involvesTeam .
+
+nba:hasName a rdf:Property ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (nba:Person nba:Team) ] ; # Si un sujet a une propriété hasName, il est soit de type Person ou Team
+    rdfs:range xsd:string .
+nba:firstName rdfs:subPropertyOf nba:hasName .
+nba:lastName rdfs:subPropertyOf nba:hasName .
+nba:teamName rdfs:subPropertyOf nba:hasName .
+
+nba:hasPoints a rdf:Property ; 
+    rdfs:domain nba:Game ;           # tous les points sont dans un match
+    rdfs:range xsd:integer .
+nba:ptsHome rdfs:subPropertyOf nba:hasPoints .
+nba:ptsAway rdfs:subPropertyOf nba:hasPoints .
+
+# Autres propriétés sans hiérarchie, mais avec domain/range
+nba:birthdate a rdf:Property .
+nba:school a rdf:Property .
+nba:height a rdf:Property .
+nba:position a rdf:Property .
+nba:draftYear a rdf:Property .
+nba:draftRound a rdf:Property .
+nba:teamCity a rdf:Property .
+nba:teamAbbreviation a rdf:Property .
+nba:gameDate a rdf:Property .
+nba:season a rdf:Property .
+nba:homeTeamWins a rdf:Property .
+
+### Domain / Range pour TOUTES les propriétés
+# Pour players
+nba:birthdate rdfs:domain nba:Player ; rdfs:range xsd:date .
+nba:school rdfs:domain nba:Player ; rdfs:range xsd:string .
+nba:height rdfs:domain nba:Player ; rdfs:range xsd:string .
+nba:position rdfs:domain nba:Player ; rdfs:range xsd:string .
+nba:draftYear rdfs:domain nba:Player ; rdfs:range xsd:gYear .
+nba:draftRound rdfs:domain nba:Player ; rdfs:range xsd:integer .
+nba:playsFor rdfs:domain nba:Player ; rdfs:range nba:Team .
+# Les propriétés firstName et lastName heritent d'un Domain et d'un Range grace à leur classe mère hasName
+
+# Pour teams
+nba:teamCity rdfs:domain nba:Team ; rdfs:range xsd:string .
+nba:teamAbbreviation rdfs:domain nba:Team ; rdfs:range xsd:string .
+
+# Pour games
+nba:gameDate rdfs:domain nba:Game ; rdfs:range xsd:date .
+nba:season rdfs:domain nba:Game ; rdfs:range xsd:gYear .
+nba:homeTeam rdfs:domain nba:Game ; rdfs:range nba:Team .
+nba:visitorTeam rdfs:domain nba:Game ; rdfs:range nba:Team .
+nba:homeTeamWins rdfs:domain nba:Game ; rdfs:range xsd:boolean .

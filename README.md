@@ -42,7 +42,6 @@ Common concept: **team_id** → used for integration.
 │   ├── nba_graph.ttl                # Integrated RDF data
 │   └── schema_rdfs_complet.ttl      # RDFS ontology
 ├── notebook.ipynb                   # Complete workflow (extraction, RDF generation, queries, reasoning)
-├── queries/                         # Individual .rq SPARQL files
 └── README.md                        # This file
 ```
 

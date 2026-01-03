@@ -36,8 +36,8 @@ Common concept: **team_id** → used for integration.
 
 ```
 ├── data/
-│   ├── games.csv
-│   └── players.csv
+│   ├── Games.csv
+│   └── Players.csv
 ├── turtles_files/
 │   ├── nba_graph.ttl                # Integrated RDF data
 │   └── schema_rdfs_complet.ttl      # RDFS ontology
@@ -57,5 +57,5 @@ Common concept: **team_id** → used for integration.
 1. Install dependencies:
 
 ```bash
-pip install pandas rdflib owlrl
+pip install -r requirements.txt
 ```
